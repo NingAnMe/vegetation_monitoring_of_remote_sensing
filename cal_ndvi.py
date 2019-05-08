@@ -4,6 +4,8 @@
 @Time    : 2019/5/8
 @Author  : AnNing
 """
+from __future__ import print_function
+
 import os
 import numpy as np
 
@@ -43,6 +45,7 @@ def cal_ndvi(in_file, out_file):
     flag = np.zeros_like(ndvi, dtype=np.int8)
     flag[cloud] = 1  # 云的判别标识
     flag[water] = 2  # 水体的判别标识
+    flag[np.isnan(ndvi)] = 3  # 无效值标识
 
     # 写HDF5文件
     result = {'NDVI': ndvi, 'Flag': flag}
@@ -56,5 +59,5 @@ if __name__ == '__main__':
         if '2000' not in filename:
             continue
         in_file = os.path.join(in_dir, filename)
-        out_file = os.path.join(out_dir, filename)
+        out_file = os.path.join(out_dir, 'NDVI_' + filename)
         cal_ndvi(in_file, out_file)
