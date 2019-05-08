@@ -6,6 +6,7 @@
 """
 
 import h5py
+import numpy as np
 
 
 class LoaderH8L1:
@@ -24,7 +25,10 @@ class LoaderH8L1:
             data = dataset[:]
             scale_factor = dataset.attrs['scale_factor']
             add_offset = dataset.attrs['add_offset']
-            return data * scale_factor + add_offset
+            data = data * scale_factor + add_offset
+            index = np.logical_and(data == 65535, data <= 0)
+            data[index] = np.nan
+            return data
 
     def get_nir(self):
         """
@@ -37,7 +41,10 @@ class LoaderH8L1:
             data = dataset[:]
             scale_factor = dataset.attrs['scale_factor']
             add_offset = dataset.attrs['add_offset']
-            return data * scale_factor + add_offset
+            data = data * scale_factor + add_offset
+            index = np.logical_and(data == 65535, data <= 0)
+            data[index] = np.nan
+            return data
 
     def get_tir(self):
         """
@@ -50,4 +57,7 @@ class LoaderH8L1:
             data = dataset[:]
             scale_factor = dataset.attrs['scale_factor']
             add_offset = dataset.attrs['add_offset']
-            return data * scale_factor + add_offset
+            data = data * scale_factor + add_offset
+            index = np.logical_and(data == 65535, data <= 0)
+            data[index] = np.nan
+            return data
