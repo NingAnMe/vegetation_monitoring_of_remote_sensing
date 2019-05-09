@@ -13,6 +13,7 @@ import yaml
 
 from load import LoaderH8L1
 from hdf5 import write_hdf5_and_compress
+from initialize import load_yaml_file
 from ndvi import cal_ndvi
 
 
@@ -48,12 +49,6 @@ def cal_ndvi_h8(in_file, out_file):
     # 写HDF5文件
     result = {'NDVI': ndvi, 'Flag': flag}
     write_hdf5_and_compress(out_file, result)
-
-
-def load_yaml_file(in_file):
-    with open(in_file, 'r') as stream:
-        config_data = yaml.load(stream)
-    return config_data
 
 
 # if __name__ == '__main__':
