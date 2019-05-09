@@ -6,6 +6,8 @@
 """
 from __future__ import print_function
 
+import os
+
 import h5py
 import numpy as np
 
@@ -21,6 +23,10 @@ def write_hdf5_and_compress(out_file, data_out):
     compression = 'gzip'
     compression_opts = 5
     shuffle = True
+    out_dir = os.path.dirname(out_file)
+    if not os.path.isdir(out_dir):
+        os.makedirs(out_dir)
+
     with h5py.File(out_file, 'w') as hdf5:
         for key in data_out:
             if isinstance(data_out[key], dict):
