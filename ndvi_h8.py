@@ -11,7 +11,7 @@ import sys
 import yaml
 
 
-from load import LoaderH8L1
+from load import ReadAhiL1
 from hdf5 import write_hdf5_and_compress
 from initialize import load_yaml_file
 from ndvi import cal_ndvi
@@ -39,10 +39,10 @@ def cal_ndvi_h8(in_file, out_file):
     :return:
     """
     print('<<< {}'.format(in_file))
-    loder = LoaderH8L1(in_file, res=2000)
-    r_vis = loder.get_vis()
-    r_nir = loder.get_nir()
-    t_tir = loder.get_tir()
+    loder = ReadAhiL1(in_file, res=2000)
+    r_vis = loder.get_channel_data('VIS0064')
+    r_nir = loder.get_channel_data('VIS0086')
+    t_tir = loder.get_channel_data('IRX1120')
 
     ndvi, flag = cal_ndvi(r_vis, r_nir, t_tir)
 
