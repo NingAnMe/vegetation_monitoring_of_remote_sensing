@@ -27,8 +27,11 @@ class ReadAhiL1(ReadL1):
     def set_ymd_hms(self):
         # AHI8_OBI_2000M_NOM_20190426_2200.hdf
         file_name = os.path.basename(self.in_file)
-        self.ymd = file_name.split()[4]
-        self.hms = file_name.split()[5] + '00'
+        self.ymd = file_name.split('_')[4]
+        self.hms = file_name.split('_')[5] + '00'
+
+    def set_data_shape(self):
+        self.data_shape = (5500, 5500)
 
     def get_ref(self):
         data = {}
