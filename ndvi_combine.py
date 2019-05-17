@@ -28,6 +28,11 @@ def main(yaml_file):
     i_in_files = interface_config['PATH']['ipath']  # 待处理文件绝对路径（list）
     i_out_file = interface_config['PATH']['opath']  # 输出文件绝对路径（str）
 
+    # 如果输出文件已经存在，跳过
+    if os.path.isfile(i_out_file):
+        print("***Warning***File is already exist, skip it: {}".format(i_out_file))
+        return
+
     in_files = list()
     for in_file in i_in_files:
         if os.path.isfile(in_file):
