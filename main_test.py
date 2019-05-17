@@ -5,93 +5,89 @@
 @Author  : AnNing
 """
 from __future__ import print_function
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
+import re
 import os
+import sys
+
+import yaml
 
 
-def main():
+def main(period, start_date, end_date):
     """
     :return:
     """
-    in_dir = '/DATA2/KTS/CMA_KTS/COM2/H08_L1B/FullDisk'
-    in_files = get_files_by_ymd(in_dir, )
 
+    result_dir = '/DATA2/KTS/CMA_KTS/ResultData/NDVI/'
+    h8_l1_dir = '/DATA2/KTS/CMA_KTS/COM2/H08_L1B/FullDisk'
 
-def slt_histogram_create_yaml(sat_sensor, job_id, date_now, day_or_month):
-    """
-    :param job_id:
-    :param sat_sensor:
-    :param date_now:
-    :param day_or_month: Daily or Monthly
-    :return:
-    """
-    sat, sensor = sat_sensor.split('+')
-    if day_or_month not in ('Daily', 'Monthly'):
-        print("Please check the 'day_or_month' argument")
-        return
-    if day_or_month == 'Monthly':
-        is_monthly = True
-    else:
-        is_monthly = False
+    out_dir_yaml = os.path.join(result_dir, 'Yaml')
+    if period == 'Orbit':
+        in_dir_file = h8_l1_dir
+        out_dir_file = os.path.join(result_dir, 'Orbit')
+        in_files = get_files_by_ymd(in_dir_file, start_date, end_date)
 
-    if is_monthly:
-        ymd_now = date_now.strftime("%Y%m")
-    else:
-        ymd_now = date_now.strftime("%Y%m%d")
+        print('File count: {}'.format(len(in_files)))
 
-    in_path = str_format(g_slt_path, {
-        'pair': sat_sensor,
-        'sat': sat,
-        'sensor': sensor,
-        'YYYY': ymd_now[0:4],
-        'MM': ymd_now[4:6],
-        'DD': ymd_now[6:8],
-    })
+        for in_file in in_files:
+            file_name = os.path.basename(in_file)
 
-    if is_monthly:
-        date_first = date_now - relativedelta(days=date_now.day + 1)
-        date_last = date_first + relativedelta(months=1) - relativedelta(days=1)
-        ymd_first = date_first.strftime("%Y%m%d")
-        ymd_last = date_last.strftime("%Y%m%d")
-        in_files = get_files_by_ymd(in_path, ymd_first, ymd_last)
-    else:
-        in_files = get_files_by_ymd(in_path, ymd_now, ymd_now)
-    if len(in_files) == 0:
-        print 'Dont found any in_file.: {}'.format(ymd_now)
-        return
+            out_file = os.path.join(out_dir_file, file_name)
+            yaml_data = {
+                'PATH': {
+                    'ipath': in_file,
+                    'opath': out_file,
+                }
+            }
 
-    out_path = str_format(g_histogram_path, {
-        'pair': sat_sensor,
-        'day_or_month': day_or_month,
-        'YYYY': ymd_now[0:4],
-        'MM': ymd_now[4:6],
-        'DD': ymd_now[6:8],
-    })
+            file_name_yaml = out_file.replace('hdf', 'yaml')
+            out_yaml = os.path.join(out_dir_yaml, file_name_yaml)
+            with open(out_yaml, 'w') as stream:
+                yaml.dump(yaml_data, stream, default_flow_style=False)
+            os.system('python ndvi_h8.py {}'.format(out_yaml))
 
-    yaml_path = str_format(g_temp_path, {
-        'pair': sat_sensor,
-        'job': job_id,
-        'YYYY': ymd_now[0:4],
-        'MM': ymd_now[4:6],
-    })
-    yaml_file_name = '{}_{}.yaml'.format(ymd_now, day_or_month)
-    yaml_file = os.path.join(yaml_path, yaml_file_name)
+    elif period == 'Daily':
+        in_dir_file = os.path.join(result_dir, 'Orbit')
+        out_dir_file = os.path.join(result_dir, 'Daily')
+        date_start = datetime.strptime(start_date, '%Y%m%d')
+        date_end = datetime.strptime(start_date, '%Y%m%d')
 
-    yaml_data = {}
-    info = yaml_data['info'] = {}
-    path = yaml_data['path'] = {}
+        while date_start <= date_end:
+            date_temp = date_start.strftime('%Y%m%d')
+            in_files = get_files_by_ymd(in_dir_file, date_temp, date_temp)
+            out_file_name = 'AHI8_OBI_2000M_NOM_{}.hdf'.format(date_temp)
+            out_file = os.path.join(out_dir_file, out_file_name)
+            yaml_data = {
+                'PATH': {
+                    'ipath': in_files,
+                    'opath': out_file,
+                }
+            }
+            file_name_yaml = out_file.replace('hdf', 'yaml')
+            out_yaml = os.path.join(out_dir_yaml, file_name_yaml)
+            with open(out_yaml, 'w') as stream:
+                yaml.dump(yaml_data, stream, default_flow_style=False)
+            os.system('python ndvi_combine.py {}'.format(out_yaml))
+            date_start = date_start + relativedelta(days=1)
+    elif period == 'Weekly':
+        in_dir_file = os.path.join(result_dir, 'Daily')
+        out_dir_file = os.path.join(result_dir, 'Weekly')
 
-    info['pair'] = sat_sensor
-    info['day_or_month'] = day_or_month
-    info['ymd'] = ymd_now
-
-    path['ipath'] = in_files
-    path['opath'] = out_path
-
-    make_sure_path_exists(os.path.dirname(yaml_file))
-    with file(yaml_file, 'w') as stream:
-        yaml.dump(yaml_data, stream, default_flow_style=False)
-
-    return yaml_file
+        in_files = get_files_by_ymd(in_dir_file, start_date, end_date)
+        out_file_name = 'AHI8_OBI_2000M_NOM_{}.hdf'.format(end_date)
+        out_file = os.path.join(out_dir_file, out_file_name)
+        yaml_data = {
+            'PATH': {
+                'ipath': in_files,
+                'opath': out_file,
+            }
+        }
+        file_name_yaml = out_file.replace('hdf', 'yaml')
+        out_yaml = os.path.join(out_dir_yaml, file_name_yaml)
+        with open(out_yaml, 'w') as stream:
+            yaml.dump(yaml_data, stream, default_flow_style=False)
+        os.system('python ndvi_combine.py {}'.format(out_yaml))
 
 
 def get_files_by_ymd(dir_path, time_start, time_end, ext=None, pattern_ymd=None):
@@ -128,3 +124,18 @@ def get_files_by_ymd(dir_path, time_start, time_end, ext=None, pattern_ymd=None)
     files_found.sort()
     return files_found
 
+
+# ######################## 程序全局入口 ##############################
+if __name__ == "__main__":
+    # 获取程序参数接口
+    ARGS = sys.argv[1:]
+    HELP_INFO = \
+        u"""
+        [arg1]： Period
+        [arg1]： date start
+        [arg1]： date end
+        [example]： python main_test.py Daily 20190513 20190513
+        """
+
+    print(HELP_INFO)
+    main(*ARGS)
