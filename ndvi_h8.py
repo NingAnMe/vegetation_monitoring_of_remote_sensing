@@ -9,6 +9,7 @@ from __future__ import print_function
 import os
 import sys
 
+import numpy as np
 
 from load import ReadAhiL1
 from hdf5 import write_hdf5_and_compress
@@ -47,6 +48,13 @@ def cal_ndvi_h8(in_file, out_file):
     r_vis = loder.get_channel_data('VIS0064')
     r_nir = loder.get_channel_data('VIS0086')
     t_tir = loder.get_channel_data('IRX1120')
+
+    # 使用天顶角过滤数据
+    solar_zenith = loder.get_solar_zenith()
+    index_invalid = solar_zenith > 80
+    r_vis[index_invalid] = np.nan
+    r_nir[index_invalid] = np.nan
+    t_tir[index_invalid] = np.nan
 
     ndvi, flag = cal_ndvi(r_vis, r_nir, t_tir)
 

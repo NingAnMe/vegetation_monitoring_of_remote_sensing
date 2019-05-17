@@ -71,6 +71,19 @@ class ReadAhiL1(ReadL1):
             data = data * scale_factor + add_offset
             return data
 
+    def get_solar_zenith(self):
+        with h5py.File(self.in_file, 'r') as h5r:
+            name = 'NOMSunZenith'
+            dataset = h5r.get(name)
+            data = dataset[:].astype(np.float32)
+            index = np.logical_or(data == 65535, data <= 0)
+            data[index] = np.nan
+
+            scale_factor = dataset.attrs['scale_factor']
+            add_offset = dataset.attrs['add_offset']
+            data = data * scale_factor + add_offset
+            return data
+
 
 class LoadH8Ndvi:
     def __init__(self, in_file, res=2000):
