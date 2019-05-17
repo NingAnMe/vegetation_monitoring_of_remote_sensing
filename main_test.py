@@ -41,7 +41,7 @@ def main(period, start_date, end_date):
                 }
             }
 
-            file_name_yaml = out_file.replace('hdf', 'yaml')
+            file_name_yaml = file_name.replace('hdf', 'yaml')
             out_yaml = os.path.join(out_dir_yaml, file_name_yaml)
             with open(out_yaml, 'w') as stream:
                 yaml.dump(yaml_data, stream, default_flow_style=False)
@@ -64,7 +64,7 @@ def main(period, start_date, end_date):
                     'opath': out_file,
                 }
             }
-            file_name_yaml = out_file.replace('hdf', 'yaml')
+            file_name_yaml = out_file_name.replace('hdf', 'yaml')
             out_yaml = os.path.join(out_dir_yaml, file_name_yaml)
             with open(out_yaml, 'w') as stream:
                 yaml.dump(yaml_data, stream, default_flow_style=False)
@@ -83,7 +83,7 @@ def main(period, start_date, end_date):
                 'opath': out_file,
             }
         }
-        file_name_yaml = out_file.replace('hdf', 'yaml')
+        file_name_yaml = out_file_name.replace('hdf', 'yaml')
         out_yaml = os.path.join(out_dir_yaml, file_name_yaml)
         with open(out_yaml, 'w') as stream:
             yaml.dump(yaml_data, stream, default_flow_style=False)
