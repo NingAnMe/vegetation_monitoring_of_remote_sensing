@@ -17,6 +17,9 @@ from initialize import load_yaml_file
 from ndvi import cal_ndvi
 
 
+SOLAR_ZENITH_MAX = 75
+
+
 def main(yaml_file):
     """
     :param yaml_file: (str) 接口yaml文件
@@ -51,7 +54,7 @@ def cal_ndvi_h8(in_file, out_file):
 
     # 使用天顶角过滤数据
     solar_zenith = loder.get_solar_zenith()
-    index_invalid = solar_zenith > 80
+    index_invalid = solar_zenith > SOLAR_ZENITH_MAX
     r_vis[index_invalid] = np.nan
     r_nir[index_invalid] = np.nan
     t_tir[index_invalid] = np.nan
