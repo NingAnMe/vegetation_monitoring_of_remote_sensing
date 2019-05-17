@@ -51,7 +51,7 @@ def main(period, start_date, end_date):
         in_dir_file = os.path.join(result_dir, 'Orbit')
         out_dir_file = os.path.join(result_dir, 'Daily')
         date_start = datetime.strptime(start_date, '%Y%m%d')
-        date_end = datetime.strptime(start_date, '%Y%m%d')
+        date_end = datetime.strptime(end_date, '%Y%m%d')
 
         while date_start <= date_end:
             date_temp = date_start.strftime('%Y%m%d')
