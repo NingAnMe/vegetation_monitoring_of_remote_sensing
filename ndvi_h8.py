@@ -6,9 +6,8 @@
 """
 from __future__ import print_function
 
+import os
 import sys
-
-import yaml
 
 
 from load import ReadAhiL1
@@ -29,6 +28,11 @@ def main(yaml_file):
     interface_config = load_yaml_file(yaml_file)
     i_in_file = interface_config['PATH']['ipath']  # 待处理文件绝对路径（str）
     i_out_file = interface_config['PATH']['opath']  # 输出文件绝对路径（str）
+
+    # 如果输出文件已经存在，跳过
+    if os.path.isfile(i_out_file):
+        print("***Warning***File is already exist, skip it: {}".format(i_out_file))
+        return
 
     cal_ndvi_h8(i_in_file, i_out_file)
 
