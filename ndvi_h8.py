@@ -61,6 +61,11 @@ def cal_ndvi_h8(in_file, out_file):
 
     ndvi, flag = cal_ndvi(r_vis, r_nir, t_tir)
 
+    # 使用海陆掩码掩盖水体
+    land_sea_mask = loder.get_land_sea_mask()
+    sea_condition = np.logical_or(land_sea_mask == 0, np.logical_and(land_sea_mask > 3, land_sea_mask < 8))
+    flag[sea_condition] = 2
+
     # 写HDF5文件
     result = {'NDVI': ndvi, 'Flag': flag}
     write_hdf5_and_compress(out_file, result)
