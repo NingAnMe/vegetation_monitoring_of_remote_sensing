@@ -1,0 +1,9 @@
+HIMAWARI_AHI_NDVI:
+  job_0210:
+   - PPS_H08_AHI_NVI_2KM
+   - VSS_H08_AHI_NVI_2KM
+  job_1010:
+   - RDP_H08_AHI_NVI_2KM_SGM
+ 
+
+

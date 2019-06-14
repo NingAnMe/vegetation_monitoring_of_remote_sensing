@@ -1,0 +1,9 @@
+Usage : hisd2netcdf [OPTION]
+  -i <InFile> [-i <InFile2> ...]
+  -o <OutFile> [option]
+  -width  <Pixel Number>
+  -height <Line Number>
+  -lat    <Left top latitude>
+  -lon    <Left top longitude>
+  -dlat   <Spatial resolution (longitude)>
+  -dlon   <Spatial resolution (latitude)>
