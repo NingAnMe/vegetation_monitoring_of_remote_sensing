@@ -1,0 +1,46 @@
+MAILTO=''
+0 0 * * * /home/HZQX/Project/OM/hz/script/main_ang_all.sh
+###################### L1原分数据拼接出图 ######################
+run_main_com_orginal_1000=/home/HZQX/Project/OM/hz/script/main_com_orginal_1000.sh
+*/1 * * * * $run_main_com_orginal_1000
+* * * * * sleep 30; $run_main_com_orginal_1000
+
+run_main_com_orginal_2000=/home/HZQX/Project/OM/hz/script/main_com_orginal_2000.sh
+*/1 * * * * $run_main_com_orginal_2000
+* * * * * sleep 30; $run_main_com_orginal_2000
+
+run_main_com_orginal_500=/home/HZQX/Project/OM/hz/script/main_com_orginal_500.sh
+*/1 * * * * $run_main_com_orginal_500
+* * * * * sleep 30; $run_main_com_orginal_500
+
+###################### L1广播数据拼接出图 ######################
+run_main_com_broadcast_4000=/home/HZQX/Project/OM/hz/script/main_com_broadcast_4000.sh
+*/1 * * * * $run_main_com_broadcast_4000
+* * * * * sleep 30; $run_main_com_broadcast_4000
+
+run_main_com_broadcast_1000=/home/HZQX/Project/OM/hz/script/main_com_broadcast_1000.sh
+*/1 * * * * $run_main_com_broadcast_1000
+* * * * * sleep 30; $run_main_com_broadcast_1000
+
+########################### L2数据出图 #######################
+run_Main_plot=/home/HZQX/Project/OM/hz/script/Main_plot.sh
+*/1 * * * * /home/HZQX/Project/OM/hz/script/Main_plot.sh
+* * * * * sleep 30; $run_Main_plot
+
+
+########################## L1数据反演 ########################
+get_himawari_data=/home/HZQX/himawari_src/001_get_himawari/crond_get_himawari.sh
+*/1 * * * * $get_himawari_data
+* * * * * sleep 10; $get_himawari_data
+
+get_broadCast_data=/home/HZQX/himawari_src/001_get_broadCast/crond_get_broadCast.sh
+*/1 * * * * $get_broadCast_data
+* * * * * sleep 10; $get_broadCast_data
+
+inverse_himawari_data=/home/HZQX/himawari_src/001_inverse_himawari/crond_inverse_himawari.sh
+*/1 * * * * $inverse_himawari_data
+* * * * * sleep 30; $inverse_himawari_data
+
+
+#0 */2 * * * /HZ_data/HZ_HMW8/H08_L1/nwp_data/wget_gfs.sh
+0 */1 * * * /home/HZQX/himawari_src/nwp_src/crond_get_gfs.sh

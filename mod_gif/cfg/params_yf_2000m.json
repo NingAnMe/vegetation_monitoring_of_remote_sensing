@@ -1,0 +1,200 @@
+{
+    "extent": [
+        100,
+        150,
+        11,
+        45
+    ],
+    "figsize": [
+        7,
+        6
+    ],
+    "figdpi": 100,
+    "save": {
+        "pad_inches": 0.1,
+        "bbox_inches": "tight",
+        "dpi": 450
+    },
+    "title": {
+        "pad": -18,
+        "fname": "./font/msyh.ttf",
+        "style": "normal",
+        "weight": "black",
+        "size": 10,
+        "color": "#F2F2CE"
+    },
+    "tick": {
+        "xtick": {
+            "length": 0,
+            "pad": 6,
+            "label": [
+                100,
+                110,
+                120,
+                130,
+                140,
+                150
+            ]
+        },
+        "ytick": {
+            "length": 0,
+            "pad": 3,
+            "label": [
+                20,
+                30,
+                40,
+                50
+            ]
+        },
+        "font": {
+            "family": "Times New Roman",
+			"fname": "./font/times.ttf",
+            "style": "normal",
+            "weight": "black",
+            "size": 7,
+            "color": "0.3"
+        }
+    },
+    "river": {
+        "file": "./shp/河流.shp",
+        "style": {
+            "edgecolor": "#82B9D9",
+            "facecolor": "none",
+            "linewidth": 0.1
+        }
+    },
+    "province_border": {
+        "file": "./shp/全国省界.shp",
+        "style": {
+            "edgecolor": "#CCCC7B",
+            "facecolor": "none",
+            "linewidth": 0.1
+        }
+    },
+    "jiuduanxian": {
+        "file": "./shp/九段线.shp",
+        "style": {
+            "edgecolor": "0.7",
+            "facecolor": "none",
+            "linewidth": 0.7
+        }
+    },
+    "coastline": {
+        "file": "./shp/周边海岸线.shp",
+        "style": {
+            "edgecolor": "#CCCC7B",
+            "facecolor": "none",
+            "linewidth": 0.13
+        }
+    },
+    "typhoon": {
+        "typhoon_24": {
+            "file": "./shp/typhoon_24.shp",
+            "style": {
+                "edgecolor": "#E64C00",
+                "facecolor": "none",
+                "linewidth": 0.4,
+				"alpha": 0.7
+            }
+        },
+        "typhoon_48": {
+            "file": "./shp/typhoon_48.shp",
+            "style": {
+                "edgecolor": "#E69800",
+                "facecolor": "none",
+                "linewidth": 0.4,
+				"alpha": 0.7
+            }
+        },
+        "typhoon_w": {
+            "file": "./shp/typhoon_w.shp",
+            "style": {
+                "edgecolor": "#38A800",
+                "facecolor": "none",
+                "linewidth": 0.5,
+                "linestyle": "--",
+				"alpha": 0.7
+            }
+        }
+    },
+    "gridline": {
+        "xlocs": [
+            100,
+            110,
+            120,
+            130,
+            140,
+            150
+        ],
+        "ylocs": [
+            10,
+            20,
+            30,
+            40,
+            50
+        ],
+        "color": "0.6",
+        "alpha": 0.9,
+        "linestyle": "--",
+        "linewidth": 0.2
+    },
+	"city_annotation": {
+		"base_font": {
+			"fname": "./font/msyh.ttf",
+            "style": "normal",
+            "weight": "normal",
+            "size": 2.3
+		},
+		"beijing": {
+			"style": {
+				"marker": "o",
+				"markeredgecolor": "0.2",
+				"markerfacecolor": "0.8",
+				"markeredgewidth": 0.25,
+				"markersize": 1.5
+			},
+			"label": {
+				"x_offset": 0,
+				"y_offset": -0.14,
+				"horizontalalignment": "center",
+				"verticalalignment": "top",
+				"color": "0.2",
+				"fontsize": 3
+			}
+		},
+		"other": {
+			"style": {
+				"marker": "o",
+				"markeredgecolor": "0.4",
+				"markerfacecolor": "#FFFFCC",
+				"markeredgewidth": 0.2,
+				"markersize": 1.2
+			},
+			"label": {
+				"x_offset": 0,
+				"y_offset": -0.12,
+				"horizontalalignment": "center",
+				"verticalalignment": "top",
+				"color": "0.3"
+			}
+		}
+	},
+	"logo": {
+		"img": {
+			"file": "./img/logo.png",
+			"loc": [0.87, 0.198, 0.02, 0.02]
+		},
+		"text": {
+			"loc_x": 142.5,
+			"loc_y": 12,
+			"fontsize": 7,
+			"horizontalalignment": "left",
+			"verticalalignment": "center",
+			"color": "0.95"
+		},
+		"text_effect": {
+			"stroke_width": 0.7,
+			"stroke_color": "0.1"
+		}
+	}
+}

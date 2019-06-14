@@ -1,0 +1,13 @@
+INFO:
+  dtype: BROADCAST
+  pair: HIMAWARI_AHI_1000_BROADCAST
+  ymd: '20190604_0820'
+PATH:
+  ipath: /HZ_data/HZ_HMW8/H08_L1/BROADCAST/H08_HDF/20190604/AHI8_OBI_1000M_NOM_20190604_0820.hdf
+  ipath_geo: /HZ_data/HZ_HMW8/H08_L1/BROADCAST/H08_GEO/H08_GEO_BROADCAST_1000M.hdf5
+  log: /home/HZQX/H08_LOG
+  opath: ./
+PROJ:
+  lt_lat: 45.0
+  lt_lon: 100.0
+  res: 0.01

@@ -1,0 +1,124 @@
+{
+    "extent": [
+        116,
+        125,
+        26,
+        32
+    ],
+    "figsize": [
+        6,
+        4
+    ],
+    "figdpi": 100,
+    "save": {
+        "pad_inches": 0.1,
+        "bbox_inches": "tight",
+        "dpi": 200
+    },
+    "title": {
+        "pad": -18,
+        "fname": "./font/msyh.ttf",
+        "style": "normal",
+        "weight": "black",
+        "size": 10,
+        "color": "#F2F2CE"
+    },
+    "tick": {
+        "xtick": {
+            "length": 0,
+            "pad": 6,
+            "label": [114, 117, 120, 123, 126]
+        },
+        "ytick": {
+            "length": 0,
+            "pad": 3,
+            "label": [24, 27, 30, 33
+            ]
+        },
+        "font": {
+            "family": "Times New Roman",
+			"fname": "./font/times.ttf",
+            "style": "normal",
+            "weight": "black",
+            "size": 6.5,
+            "color": "0.3"
+        }
+    },
+    "river": {
+        "file": "./shp/河流.shp",
+        "style": {
+            "edgecolor": "#99DBFF",
+            "facecolor": "none",
+            "linewidth": 0.1
+        }
+    },
+    "province_border": {
+        "file": "./shp/全国省界.shp",
+        "style": {
+            "edgecolor": "#CCCC7B",
+            "facecolor": "none",
+            "linewidth": 0.15
+        }
+    },
+	"hangzhou_border": {
+        "file": "./shp/杭州市_region.shp",
+        "style": {
+            "edgecolor": "#CCCC9B",
+            "facecolor": "none",
+            "linewidth": 0.1
+        }
+    },
+    "jiuduanxian": {
+        "file": "./shp/九段线.shp",
+        "style": {
+            "edgecolor": "0.7",
+            "facecolor": "none",
+            "linewidth": 0.4
+        }
+    },
+    "coastline": {
+        "file": "./shp/周边海岸线.shp",
+        "style": {
+            "edgecolor": "#F2F291",
+            "facecolor": "none",
+            "linewidth": 0.15
+        }
+    },
+    "typhoon": {
+        "typhoon_24": {
+            "file": "./shp/typhoon_24.shp",
+            "style": {
+                "edgecolor": "#E64C00",
+                "facecolor": "none",
+                "linewidth": 0.2
+            }
+        },
+        "typhoon_48": {
+            "file": "./shp/typhoon_48.shp",
+            "style": {
+                "edgecolor": "#E69800",
+                "facecolor": "none",
+                "linewidth": 0.2
+            }
+        },
+        "typhoon_w": {
+            "file": "./shp/typhoon_w.shp",
+            "style": {
+                "edgecolor": "#38A800",
+                "facecolor": "none",
+                "linewidth": 0.2,
+                "linestyle": "--"
+            }
+        }
+    },
+    "gridline": {
+        "xlocs": [114, 117, 120, 123, 126
+        ],
+        "ylocs": [24, 27, 30, 33
+        ],
+        "color": "0.3",
+        "alpha": 1,
+        "linestyle": "--",
+        "linewidth": 0.15
+    }
+}
