@@ -19,7 +19,7 @@ class ReadAhiL1(ReadL1):
         super(ReadAhiL1, self).__init__(in_file, sensor)
         self.in_file = in_file
         self.geo_file = geo_file
-        print(self.geo_file)
+        # print(self.geo_file)
         self.res = res
         self.channel_um = ['VIS0046', 'VIS0051', 'VIS0064', 'VIS0086',
                            'VIS0160', 'VIS0230', 'IRX0390', 'IRX0620',
@@ -134,9 +134,10 @@ class ReadAhiL1(ReadL1):
             with h5py.File(self.geo_file, 'r') as h5r:
                 name = 'pixel_land_mask'
                 dataset = h5r.get(name)
-                data = dataset[:].astype(np.float32)
-                index = np.logical_or(data == -999, data <= 0)
-                data[index] = np.nan
+
+                data = dataset[:]
+                # index = np.logical_or(data == -999, data <= 0)
+                # data[index] = np.nan
 
             return data
         else:
