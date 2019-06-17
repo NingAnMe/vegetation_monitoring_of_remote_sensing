@@ -10,15 +10,13 @@ import os
 import sys
 
 import numpy as np
-
-from lib.load import ReadAhiL1
 from lib.hdf5 import write_hdf5_and_compress
 from lib.initialize import load_yaml_file
+from lib.load import ReadAhiL1
 from lib.ndvi import cal_ndvi
-
-#add by yan on 2019-05-27---create ndvi tiff/png colorbar
-#ndvi range from -0.2 to 1.0 (linear stretch gray range is 0-99)
-#color lookup table nadvi_symbol.txt
+# add by yan on 2019-05-27---create ndvi tiff/png colorbar
+# ndvi range from -0.2 to 1.0 (linear stretch gray range is 0-99)
+# color lookup table nadvi_symbol.txt
 from lib.ndvi_symbol import create_ndvi_figure
 
 
@@ -73,22 +71,24 @@ def cal_ndvi_h8(in_file, out_file, geo_file, out_fig):
     r_vis[index_invalid] = np.nan
     r_nir[index_invalid] = np.nan
     t_tir[index_invalid] = np.nan
-    m_tir[index_invalid]= np.nan
+    m_tir[index_invalid] = np.nan
 
     land_mask = loder.get_land_sea_mask()
     land_condition = np.logical_or(land_mask == 1, land_mask == 2)
-    sea_condition=np.logical_or(land_mask==0,np.logical_and(land_mask>2,land_mask<8))
+    sea_condition = np.logical_or(land_mask == 0, np.logical_and(land_mask > 2, land_mask < 8))
 
     surface_type_mask = np.ones(land_mask.shape, dtype='uint8')
     surface_type_mask[land_condition] = 1
     surface_type_mask[sea_condition] = 2
-    ndvi, flag = cal_ndvi(r_vis, r_nir,m_tir, t_tir, surface_type_mask)
+    ndvi, flag = cal_ndvi(r_vis, r_nir, m_tir, t_tir, surface_type_mask)
 
     # 写HDF5文件
     result = {'NDVI': ndvi, 'Flag': flag}
     write_hdf5_and_compress(out_file, result)
-    #add by yan --- creete ndvi figure(tiff/jpg)
+    # add by yan --- creete ndvi figure(tiff/jpg)
     create_ndvi_figure(result, out_fig)
+
+
 # if __name__ == '__main__':
 #     in_dir = r'D:\KunYu\hangzhou_anning\H8_L1'
 #     out_dir = r'D:\KunYu\hangzhou_anning\H8_NDVI'

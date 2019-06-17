@@ -7,17 +7,17 @@
 from __future__ import print_function
 
 import os
-import numpy as np
 import sys
 
+import numpy as np
 from lib.hdf5 import write_hdf5_and_compress
 from lib.initialize import load_yaml_file
 from lib.load import LoadH8Ndvi
-
-#add by yan on 2019-05-27---create ndvi tiff/png colorbar
-#ndvi range from -0.2 to 1.0 (linear stretch gray range is 0-99)
-#color lookup table nadvi_symbol.txt
+# add by yan on 2019-05-27---create ndvi tiff/png colorbar
+# ndvi range from -0.2 to 1.0 (linear stretch gray range is 0-99)
+# color lookup table nadvi_symbol.txt
 from lib.ndvi_symbol import create_ndvi_figure
+
 
 def main(yaml_file):
     """
@@ -32,15 +32,15 @@ def main(yaml_file):
     i_in_files = interface_config['PATH']['ipath']  # 待处理文件绝对路径（list）
     i_out_file = interface_config['PATH']['opath']  # 输出文件绝对路径（str）
     # i_geo_file = interface_config['PATH']['ipath_geo']  # 辅助导航文件绝对路径（str）
-    i_out_fig =  interface_config['PATH']['opath_fig'] # 输出图片文件绝对路径(str)
+    i_out_fig = interface_config['PATH']['opath_fig']  # 输出图片文件绝对路径(str)
     # 如果输出文件已经存在，跳过
 
     if os.path.isfile(i_out_fig):
         print(
             "***Warning***File is already exist, skip it: {}".format(i_out_fig))
         return
-    
-    i_out_fig_dirs=os.path.dirname(i_out_fig)
+
+    i_out_fig_dirs = os.path.dirname(i_out_fig)
     if not os.path.isdir(i_out_fig_dirs):
         os.makedirs(i_out_fig_dirs)
 
@@ -48,7 +48,6 @@ def main(yaml_file):
         print(
             "***Warning***File is already exist, skip it: {}".format(i_out_file))
         return
-
 
     in_files = list()
     for in_file in i_in_files:
@@ -64,10 +63,10 @@ def main(yaml_file):
     else:
         print('---INFO---File count: {}'.format(file_count))
 
-    combine(in_files, i_out_file,i_out_fig)
+    combine(in_files, i_out_file, i_out_fig)
 
 
-def combine(in_files, out_file,out_fig):
+def combine(in_files, out_file, out_fig):
     ndvi = None
     flag = None
     for in_file in in_files:
@@ -97,8 +96,9 @@ def combine(in_files, out_file,out_fig):
     result = {'NDVI': ndvi, 'Flag': flag}
     write_hdf5_and_compress(out_file, result)
 
-    #add by yan --- creete ndvi figure(tiff/jpg)
-    create_ndvi_figure(result,out_fig)
+    # add by yan --- creete ndvi figure(tiff/jpg)
+    create_ndvi_figure(result, out_fig)
+
 
 # ######################## 程序全局入口 ##############################
 if __name__ == "__main__":

@@ -1,0 +1,10 @@
+SolarZenith_MAX: 88.0
+InnPut_ParaPath: 'Parameters'
+
+InnPut_Root_L01: 'MOD10A1_LUT xBT11_ySECANT(SZA)_zBT11-BT12.txt'
+InnPut_Root_L02: 'MOD10A1_SnowPackLine_0.1x0.1Deg_Month-01to12.txt'
+InnPut_Root_L03: 'MOD10A1_yNDSIxNDVI_SnowForest_ThesholdLine.txt'
+InnPut_Root_L11: 'MOD10A1_FreshSnow&WaterIceCloud_R138R164.txt'
+InnPut_Root_L12: 'MOD10A1_FreshSnow&WaterIceCloud_R164T11.txt'
+InnPut_Root_L13: 'MOD10A1_FreshSnow&WaterIceCloud_R164R138.txt'
+InnPut_Root_L14: 'MOD10A1_FreshSnow&WaterIceCloud_T11mT12R164.txt'
